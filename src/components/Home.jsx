@@ -123,7 +123,7 @@ const Home = () => {
       <div className=" w-[100%]">
         {/* hero section */}
         <div className="flex flex-col items-center">
-          <div className="  w-7/12 h-[230px] max-430:h-[180px] object-cover rounded-full overflow-hidden flex justi
+          <div className="  w-7/12 h-[230px] max-430:h-[180px] bg-black object-cover rounded-full overflow-hidden flex justi
           fy-center items-center shadow-lg object-cover ">
             
             <Swiper

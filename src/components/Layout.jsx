@@ -33,13 +33,13 @@ const Layout = ({ children }) => {
   };
   return (
     <div className="w-full m-0 p-0  ">
-      <div className="w-[90%] max-w-[430px] mx-auto min-h-full  bg-[#FFF7F9]  ">
+      <div className="w-[100%] max-w-[450px] mx-auto min-h-full  bg-[#FFF7F9]  ">
         <div className=" ">
           <header className="p-4 bg-[#FFB7CE] flex justify-between items-center shadow-lg sticky top-0 left-0 z-50 ">
             <div className=" w-20 h-16 max-430:h-[50px] max-430:w-[60px] bg-black  rounded-full overflow-hidden object-cover  ">
               <img
                 src="images/logo.jpg"
-                className="w-20 h-16 max-430:h-[50px] max-430:w-[50px] rounded-full object-cover"
+                className="w-20 h-16 max-430:h-[50px] max-430:w-[50px]  rounded-full object-cover"
                 alt=""
               />
             </div>
