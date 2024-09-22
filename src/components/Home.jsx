@@ -136,7 +136,7 @@ const Home = () => {
                 <img   src="profile/a.jpg " className="rounded-full p-4 mt-6 bg-black" />
               </SwiperSlide>
               <SwiperSlide>
-                <img  src="profile/b.jpg" className="rounded-full mt-14  bg-black " />
+                <img  src="profile/b.jpg" className="rounded-full mt-12  bg-black " />
               </SwiperSlide>
               <SwiperSlide>
                 <img  src="profile/c.jpg" className="rounded-full " />
