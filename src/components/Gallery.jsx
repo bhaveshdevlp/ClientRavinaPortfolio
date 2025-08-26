@@ -1,95 +1,139 @@
-import Layout from "./Layout"
+import Layout from "./Layout";
+import React, { useState, useEffect } from 'react';
 
-const Gallery=()=>{
-    const photos=[
-        {
-            href:"services/bride.jpg",
-           
-        },
-        {
-            href:"services/bride2.jpg",
-           
-        },
-         {
-            href:"services/bride3.jpg",
+const Gallery = () => {
+  const [images, setImages] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState('All');
+  const [selectedImage, setSelectedImage] = useState(null);
+  const [isMobile, setIsMobile] = useState(false);
 
-         },
-         {
-            href:"services/bride4.jpg",
-         },
-       
-        {
-            href:"services/Baby1.jpg",
-  
-        },
-        {
-            href:"services/baby2.JPG",
-  
-        },
-        {
-            href:"services/party.JPG",
-        },
-        {
-            href:"services/party2.jpg",
+  // Check if device is mobile
+  useEffect(() => {
+    const checkIsMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    
+    checkIsMobile();
+    window.addEventListener('resize', checkIsMobile);
+    
+    return () => {
+      window.removeEventListener('resize', checkIsMobile);
+    };
+  }, []);
 
-        },
-        {
-            href:"services/sidder.jpg",
-        },
-        {
-            href:"services/sidder2.jpg",    
-        },
-        {
-            href:"services/sider3.jpg",    
-        },
-        {
-            href:"services/sidder4.jpg",    
-        },
-        {
+  useEffect(() => {
+    fetchImages();
+  }, []);
 
-            href:"services/a.jpg"
-        },
-        {
-            
-            href:"services/b.jpg"
-        },
-        {
-         
-            href:"services/c.jpg"
-        },
-        
-        {
-      
-            href:"services/d.webp"
-        },
-        {
-      
-            href:"services/e.webp"
-        },
-        {
-      
-            href:"services/f.webp"
-        },
+  const fetchImages = async () => {
+    try {
+      const response = await fetch('http://localhost:5000/api/images');
+      const data = await response.json();
+      setImages(data);
+    } catch (error) {
+      console.error('Error fetching images:', error);
+    }
+  };
 
+  // Handle image click (mobile only)
+  const handleImageClick = (image) => {
+    if (isMobile) {
+      setSelectedImage(image);
+    }
+  };
 
-    ]
-    return(
-        <Layout>
-            <div>
-                <hr />
-                <h1 className="font-semibold text-2xl p-2 mt-2">Gallery</h1>
-                <hr />
-            <div className="grid grid-cols-2  gap-4 mt-4">
-              {
-                  photos.map((item,index)=>(
-                      <div className="shadow-lg rounded-md">
-                        <img className="rounded-md transition-transform duration-300 hover:scale-110" src={item.href} alt="" />
-                    </div>                   
-                ))
-            }
+  // Close full-screen preview
+  const closePreview = () => {
+    setSelectedImage(null);
+  };
+
+  const categories = ['All', 'Party Makeup',"Sider Makeup",
+    "Baby Shower Makeup","Hair Styling", 'Bridal Makeup', 'Editorial Makeup', 'Special Effects', 'Everyday Look'];
+
+  const filteredImages = selectedCategory === 'All' 
+    ? images 
+    : images.filter(img => img.category === selectedCategory);
+
+  return (
+    <Layout> 
+      <div className="min-h-screen bg-gray-50 py-8 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-10">
+            <h1 className="text-3xl font-bold text-pink-700 mb-2">Makeup Portfolio</h1>
+            <p className="text-gray-600">Browse our collection of makeup artistry</p>
+          </div>
+          
+          <div className="flex flex-wrap justify-center gap-2 mb-10">
+            {categories.map(category => (
+              <button
+                key={category}
+                onClick={() => setSelectedCategory(category)}
+                className={`px-4 py-2 rounded-full ${
+                  selectedCategory === category 
+                    ? 'bg-pink-600 text-white' 
+                    : 'bg-white text-pink-600 border border-pink-600'
+                }`}
+              >
+                {category}
+              </button>
+            ))}
+          </div>
+          
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {filteredImages.map(image => (
+              <div 
+                key={image._id} 
+                className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow cursor-pointer"
+                onClick={() => handleImageClick(image)}
+              >
+                <img 
+                  src={image.url} 
+                  alt={image.title} 
+                  className="w-full h-64 object-cover"
+                />
+                <div className="p-4">
+                  <h3 className="text-xl font-semibold text-gray-800 mb-2">{image.title}</h3>
+                  <span className="inline-block bg-pink-100 text-pink-800 text-sm px-3 py-1 rounded-full mb-3">
+                    {image.category}
+                  </span>
+                  <p className="text-gray-600">{image.description}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+          
+          {filteredImages.length === 0 && (
+            <div className="text-center py-12">
+              <p className="text-gray-500 text-lg">No images found in this category.</p>
             </div>
+          )}
+        </div>
+
+        {/* Full-screen preview for mobile */}
+        {selectedImage && (
+          <div className="fixed inset-0 bg-black bg-opacity-90 z-50 flex items-center justify-center p-4 md:hidden">
+            <div className="relative w-full h-full flex items-center justify-center">
+              <img 
+                src={selectedImage.url} 
+                alt={selectedImage.title}
+                className="max-w-full max-h-full object-contain"
+              />
+              <div className="absolute top-4 left-4 text-white">
+                <h3 className="text-xl font-bold">{selectedImage.title}</h3>
+                <p className="text-sm opacity-80">{selectedImage.category}</p>
+              </div>
+              <button 
+                onClick={closePreview}
+                className="absolute top-4 right-4 text-white text-3xl bg-black bg-opacity-50 rounded-full w-12 h-12 flex items-center justify-center"
+              >
+                &times;
+              </button>
             </div>
-        </Layout>
-    )
-}
-export default Gallery
+          </div>
+        )}
+      </div>
+    </Layout>
+  );
+};
+
+export default Gallery;
