@@ -40,3 +40,16 @@
 .read-the-docs {
   color: #888;
 }
+
+.object-center-top {
+  object-position: center top;
+}
+
+/* For specific image adjustments based on content */
+.portrait-image {
+  object-position: center 25%;
+}
+
+.group:hover .group-hover-scale-105 {
+  transform: scale(1.05);
+}
