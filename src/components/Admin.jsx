@@ -422,7 +422,7 @@ const Admin = () => {
     
     try {
       const token = localStorage.getItem('adminToken');
-      const response = await fetch(`http://localhost:5000/api/images/${imageId}`, {
+      const response = await fetch(`https://ravinaclientasfdfdhgtv.vercel.app/api/images/${imageId}`, {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${token}`
@@ -468,7 +468,7 @@ const Admin = () => {
         if (data.secure_url) {
           // Save to our backend
           const token = localStorage.getItem('adminToken');
-          const saveResponse = await fetch('http://localhost:5000/api/images', {
+          const saveResponse = await fetch('https://ravinaclientasfdfdhgtv.vercel.app/api/images', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
@@ -513,7 +513,7 @@ const Admin = () => {
     const fetchImages = async () => {
       try {
         const token = localStorage.getItem('adminToken');
-        const response = await fetch('http://localhost:5000/api/images', {
+        const response = await fetch('https://ravinaclientasfdfdhgtv.vercel.app/api/images', {
           headers: {
             'Authorization': `Bearer ${token}`
           }

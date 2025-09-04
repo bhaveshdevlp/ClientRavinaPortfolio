@@ -25,7 +25,7 @@ const Gallery = () => {
 
   const fetchImages = async () => {
     try {
-      const response = await fetch('http://localhost:5000/api/images');
+      const response = await fetch('https://ravinaclientasfdfdhgtv.vercel.app/api/images');
       const data = await response.json();
       setImages(data);
     } catch (error) {
