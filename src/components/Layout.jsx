@@ -140,6 +140,10 @@ const Layout = ({ children }) => {
       label: "Clients",
       href: "/clients",
     },
+    {
+      label: "Admin",
+      href: "/admin",
+    },
   ];
 
   const navigate = useNavigate();

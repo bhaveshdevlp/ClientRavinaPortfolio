@@ -5,6 +5,8 @@ import Services from "./components/Services"
 import Gallery from "./components/Gallery"
 import Clients from "./components/Clients"
 import Admin from "./components/Admin"
+import ProtectedRoute from "./components/ProtectedRoute"
+import Login from "./components/Login"
 
 
 
@@ -18,10 +20,18 @@ const App=()=>{
             <Route path="/clients" element={<Clients />}/>
 
 
-            <Route path="/adminR" element={<Admin />}/>
+           <Route path="/admin/login" element={<Login />} />
+        <Route 
+          path="/admin" 
+          element={
+            <ProtectedRoute>
+              <Admin />
+            </ProtectedRoute>
+          } 
+        />
             
             
-            
+
 
 
           </Routes>  
