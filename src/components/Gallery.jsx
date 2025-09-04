@@ -12,10 +12,8 @@ const Gallery = () => {
     const checkIsMobile = () => {
       setIsMobile(window.innerWidth <= 768);
     };
-    
     checkIsMobile();
     window.addEventListener('resize', checkIsMobile);
-    
     return () => {
       window.removeEventListener('resize', checkIsMobile);
     };
@@ -47,22 +45,26 @@ const Gallery = () => {
     setSelectedImage(null);
   };
 
-  const categories = ['All', 'Party Makeup',"Sider Makeup",
-    "Baby Shower Makeup","Hair Styling", 'Bridal Makeup', 'Editorial Makeup', 'Special Effects', 'Everyday Look'];
+  const categories = [
+    'All', 'Party Makeup', "Sider Makeup",
+    "Baby Shower Makeup", "Hair Styling",
+    'Bridal Makeup', 'Editorial Makeup',
+    'Special Effects', 'Everyday Look'
+  ];
 
-  const filteredImages = selectedCategory === 'All' 
-    ? images 
+  const filteredImages = selectedCategory === 'All'
+    ? images
     : images.filter(img => img.category === selectedCategory);
 
   return (
-    <Layout> 
+    <Layout>
       <div className="min-h-screen bg-gray-50 py-8 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-10">
             <h1 className="text-3xl font-bold text-pink-700 mb-2">Makeup Portfolio</h1>
             <p className="text-gray-600">Browse our collection of makeup artistry</p>
           </div>
-          
+
           <div className="flex flex-wrap justify-center gap-2 mb-10">
             {categories.map(category => (
               <button
@@ -70,7 +72,7 @@ const Gallery = () => {
                 onClick={() => setSelectedCategory(category)}
                 className={`px-4 py-2 rounded-full ${
                   selectedCategory === category 
-                    ? 'bg-pink-600 text-white' 
+                    ? 'bg-pink-600 text-white'
                     : 'bg-white text-pink-600 border border-pink-600'
                 }`}
               >
@@ -78,30 +80,24 @@ const Gallery = () => {
               </button>
             ))}
           </div>
-          
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+
+          {/* 3-column square grid gallery */}
+          <div className="grid grid-cols-3 gap-2">
             {filteredImages.map(image => (
-              <div 
-                key={image._id} 
-                className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow cursor-pointer"
+              <div
+                key={image._id}
+                className="aspect-square bg-gray-200 rounded-md overflow-hidden cursor-pointer"
                 onClick={() => handleImageClick(image)}
               >
-                <img 
-                  src={image.url} 
-                  alt={image.title} 
-                  className="w-full h-64 object-cover"
+                <img
+                  src={image.url}
+                  alt={image.title}
+                  className="w-full h-full object-cover"
                 />
-                <div className="p-4">
-                  <h3 className="text-xl font-semibold text-gray-800 mb-2">{image.title}</h3>
-                  <span className="inline-block bg-pink-100 text-pink-800 text-sm px-3 py-1 rounded-full mb-3">
-                    {image.category}
-                  </span>
-                  <p className="text-gray-600">{image.description}</p>
-                </div>
               </div>
             ))}
           </div>
-          
+
           {filteredImages.length === 0 && (
             <div className="text-center py-12">
               <p className="text-gray-500 text-lg">No images found in this category.</p>
@@ -113,8 +109,8 @@ const Gallery = () => {
         {selectedImage && (
           <div className="fixed inset-0 bg-black bg-opacity-90 z-50 flex items-center justify-center p-4 md:hidden">
             <div className="relative w-full h-full flex items-center justify-center">
-              <img 
-                src={selectedImage.url} 
+              <img
+                src={selectedImage.url}
                 alt={selectedImage.title}
                 className="max-w-full max-h-full object-contain"
               />
@@ -122,7 +118,7 @@ const Gallery = () => {
                 <h3 className="text-xl font-bold">{selectedImage.title}</h3>
                 <p className="text-sm opacity-80">{selectedImage.category}</p>
               </div>
-              <button 
+              <button
                 onClick={closePreview}
                 className="absolute top-4 right-4 text-white text-3xl bg-black bg-opacity-50 rounded-full w-12 h-12 flex items-center justify-center"
               >
