@@ -23,7 +23,7 @@ const Login = () => {
     setError('');
 
     try {
-      const response = await fetch('https://ravinaclientasfdfdhgtv.vercel.app/api/auth/login', {
+      const response = await fetch('https://ravinaclient.vercel.app/auth/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
