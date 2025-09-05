@@ -422,7 +422,7 @@ const Admin = () => {
     
     try {
       const token = localStorage.getItem('adminToken');
-      const response = await fetch(`https://ravinaclient.vercel.app/api/images/${imageId}`, {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/images/${imageId}`, {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${token}`
