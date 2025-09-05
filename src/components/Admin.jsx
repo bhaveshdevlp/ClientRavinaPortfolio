@@ -1,3 +1,4 @@
+
 // import React, { useState, useRef, useEffect } from 'react';
 // import { useNavigate } from 'react-router-dom';
 // import '@fortawesome/fontawesome-free/css/all.min.css';
@@ -288,7 +289,7 @@
 //                       <p className="text-xs text-gray-700 truncate">{file.name}</p>
 //                     </div>
 //                   </div>
-//                 ))}
+//                 ))}'''
 //               </div>
 //             </div>
 //           )}
@@ -297,10 +298,10 @@
 //             onClick={uploadToCloudinary} 
 //             disabled={selectedFiles.length === 0 || uploading}
 //             className={`w-full py-3 px-4 rounded-md text-white font-medium ${
-//               selectedFiles.length === 0 || uploading 
-//                 ? 'bg-gray-400 cursor-not-allowed' 
-//                 : 'bg-pink-600 hover:bg-pink-700'
-//             } transition-colors`}
+              selectedFiles.length === 0 || uploading 
+                ? 'bg-gray-400 cursor-not-allowed' 
+                : 'bg-pink-600 hover:bg-pink-700'
+            } transition-colors`}
 //           >
 //             {uploading ? `Uploading... ${Math.round(uploadProgress)}%` : 'Upload Images'}
 //           </button>
@@ -332,7 +333,7 @@
 //                     <span className="inline-block bg-pink-100 text-pink-800 text-xs px-2 py-1 rounded-full mb-2">
 //                       {image.category}
 //                     </span>
-//                     <p className="text-sm text-gray-600">{image.description}</p>
+p className="text-sm text-gray-600">{image.description}</p>
 //                   </div>
 //                 </div>
 //               ))}
@@ -422,7 +423,7 @@ const Admin = () => {
     
     try {
       const token = localStorage.getItem('adminToken');
-      const response = await fetch(`https://ravinaclient.vercel.app/api/images/${imageId}`, {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/images/${imageId}`, {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${token}`
@@ -468,7 +469,7 @@ const Admin = () => {
         if (data.secure_url) {
           // Save to our backend
           const token = localStorage.getItem('adminToken');
-          const saveResponse = await fetch('https://ravinaclient.vercel.app/api/images', {
+          const saveResponse = await fetch(`${import.meta.env.VITE_API_URL}/api/images`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
@@ -514,7 +515,7 @@ const Admin = () => {
     const fetchImages = async () => {
       try {
         const token = localStorage.getItem('adminToken');
-        const response = await fetch('https://ravinaclient.vercel.app/api/images', {
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/api/images`, {
           headers: {
             'Authorization': `Bearer ${token}`
           }
