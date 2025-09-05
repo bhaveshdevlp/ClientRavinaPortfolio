@@ -32,7 +32,7 @@ const Gallery = () => {
       console.error('Error fetching images:', error);
     }
   };
-  console.log(response);
+
   // Handle image click (mobile only)
   const handleImageClick = (image) => {
     if (isMobile) {
